@@ -16,6 +16,7 @@ Critter::Critter()
 	, m_alive(true)
 	, m_deathSound()
 	, m_deathBuffer()
+	, m_pendingScore(0)
 {
 	//set up sprite
 	m_texture.loadFromFile("graphics/whale.png");
@@ -44,20 +45,36 @@ void Critter::Input(sf::Event _gameEvent)
 	//onliy handle input if alive
 	if (m_alive)
 	{
-	
-	//check if this event is a click
-	if (_gameEvent.type == sf::Event::MouseButtonPressed)
-	{
 
-		// Did they click on this critter?
-		if (m_sprite.getGlobalBounds().contains(_gameEvent.mouseButton.x, _gameEvent.mouseButton.y))
+		//check if this event is a click
+		if (_gameEvent.type == sf::Event::MouseButtonPressed)
 		{
-			//they clicked it!
-			m_alive = false;
 
-			m_deathSound.play();
-		}
+			// Did they click on this critter?
+			if (m_sprite.getGlobalBounds().contains(_gameEvent.mouseButton.x, _gameEvent.mouseButton.y))
+			{
+				//they clicked it!
+				m_alive = false;
 
-	} //endif
+				m_deathSound.play();
+
+				//add to pending score
+				m_pendingScore += 1;
+			}
+
+		} //end event if statement
+
+	}
+
 }
-	}	
+
+
+int Critter::GetPendingScore()
+{
+	return m_pendingScore;
+}
+
+void Critter::ClearPendingScore()
+{
+	m_pendingScore = 0;
+}

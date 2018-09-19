@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <cstdlib> //gives access to random fucntion
 #include <ctime> //gives access to time function
+#include <string> //gives access to string function
 
 //------------------------------
 // INCLUDED IN PROJECT
@@ -28,6 +29,20 @@ int main()
 
 	//create instance of critter class
 	Critter Whaley;
+
+	//game font
+	sf::Font gameFont;
+	gameFont.loadFromFile("fonts/mainFont.ttf");
+
+	//score tracking
+	int score = 0;
+	sf::Text scoreText;
+	scoreText.setFont(gameFont);
+	scoreText.setString("Score:  " + std::to_string(score));
+	scoreText.setCharacterSize(50);
+	scoreText.setFillColor(sf::Color::Cyan);
+	scoreText.setPosition(50, 50);
+
 
 	//end game setup
 
@@ -64,6 +79,12 @@ int main()
 	//--------------------------------------
 		sf::Time frameTime = gameClock.restart();
 
+		// See if there is any pending score
+		score += Whaley.GetPendingScore();
+		Whaley.ClearPendingScore();
+		scoreText.setString("Score:  " + std::to_string(score));
+		
+
 			//end update
 			//---------------------------------
 
@@ -78,6 +99,7 @@ int main()
 
 		//draw everything
 			Whaley.Draw(gameWindow);
+			gameWindow.draw(scoreText);
 
 		//display window contents to screen
 		gameWindow.display();
