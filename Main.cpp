@@ -2,8 +2,8 @@
 // INCLUDED LIBRARIES
 //------------------------------
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <string>
+#include <cstdlib> //gives access to random fucntion
+#include <ctime> //gives access to time function
 
 //------------------------------
 // INCLUDED IN PROJECT
@@ -22,6 +22,9 @@ int main()
 
 	//Timer function
 	sf::Clock gameClock;
+
+	//seed our random number generator
+	srand(time(NULL));
 
 	//create instance of critter class
 	Critter Whaley;

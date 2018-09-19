@@ -1,8 +1,13 @@
 //------------------------------
 // INCLUDED IN PROJECT
-//------------------------------
-
+//-----------------------------
 #include "Critter.h"
+
+//------------------------------
+// INCLUDED LIBRARIES
+//------------------------------
+#include <cstdlib>
+
 
 Critter::Critter()
 //initialisation list
@@ -11,7 +16,8 @@ Critter::Critter()
 {
 	m_texture.loadFromFile("graphics/whale.png");
 	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(300, 300);
+	m_sprite.setPosition(	rand() % sf::VideoMode::getDesktopMode().width, 
+							rand() % sf::VideoMode::getDesktopMode().height );
 
 }
 
