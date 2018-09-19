@@ -17,12 +17,9 @@ Critter::Critter()
 	, m_deathSound()
 	, m_deathBuffer()
 	, m_pendingScore(0)
+	, m_scoreValue(1)
 {
-	//set up sprite
-	m_texture.loadFromFile("graphics/whale.png");
-	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(	rand() % sf::VideoMode::getDesktopMode().width, 
-							rand() % sf::VideoMode::getDesktopMode().height );
+	
 
 	m_deathBuffer.loadFromFile("audio/buttonclick.ogg");
 	m_deathSound.setBuffer(m_deathBuffer);
@@ -59,7 +56,7 @@ void Critter::Input(sf::Event _gameEvent)
 				m_deathSound.play();
 
 				//add to pending score
-				m_pendingScore += 1;
+				m_pendingScore += m_scoreValue;
 			}
 
 		} //end event if statement
@@ -77,4 +74,15 @@ int Critter::GetPendingScore()
 void Critter::ClearPendingScore()
 {
 	m_pendingScore = 0;
+}
+
+void Critter::Setup(std::string _textureFile, int _pointValue)
+{
+	//set up sprite
+	m_texture.loadFromFile(_textureFile);
+	m_sprite.setTexture(m_texture);
+	m_sprite.setPosition(rand() % sf::VideoMode::getDesktopMode().width,
+		rand() % sf::VideoMode::getDesktopMode().height);
+
+	m_scoreValue = _pointValue;
 }

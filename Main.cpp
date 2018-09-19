@@ -29,6 +29,9 @@ int main()
 
 	//create instance of critter class
 	Critter Whaley;
+	Whaley.Setup("graphics/whale.png", 5);
+	Critter Russ;
+	Russ.Setup("graphics/walrus.png", 10);
 
 	//game font
 	sf::Font gameFont;
@@ -61,6 +64,7 @@ int main()
 		{
 			//Process inout on critters
 			Whaley.Input(event);
+			Russ.Input(event);
 
 			if (event.type == sf::Event::Closed)
 			{
@@ -84,6 +88,10 @@ int main()
 		Whaley.ClearPendingScore();
 		scoreText.setString("Score:  " + std::to_string(score));
 		
+		//second critter
+		score += Russ.GetPendingScore();
+		Russ.ClearPendingScore();
+		scoreText.setString("Score:  " + std::to_string(score));
 
 			//end update
 			//---------------------------------
@@ -99,6 +107,7 @@ int main()
 
 		//draw everything
 			Whaley.Draw(gameWindow);
+			Russ.Draw(gameWindow);
 			gameWindow.draw(scoreText);
 
 		//display window contents to screen
