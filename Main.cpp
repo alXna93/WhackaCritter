@@ -1,22 +1,80 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <string>
+
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
 
-	while (window.isOpen())
+	//----------------------------------------------
+	//GAME SETUP
+	//----------------------------------------------
+	sf::RenderWindow gameWindow;
+	gameWindow.create(sf::VideoMode::getDesktopMode(), "WhackaCritter",
+	sf::Style::Titlebar | sf::Style::Close);
+
+	//Timer function
+	sf::Clock gameClock;
+
+	//end game setup
+
+	//------------------------------------------------
+	// GAME LOOP
+	//------------------------------------------------
+
+	while (gameWindow.isOpen())
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}
+		//--------------------------------------------
+		// INPUT
+		//--------------------------------------------
 
+		sf::Event event;
+		while (gameWindow.pollEvent(event))
+		{
+
+
+			if (event.type == sf::Event::Closed)
+			{
+				gameWindow.close();
+			}//endif
+		}//end event polling loop
+
+
+
+	// END INPUT
+	//-------------------------------------
+
+
+	//--------------------------------------
+	// UPDATE
+	//--------------------------------------
+		sf::Time frameTime = gameClock.restart();
+
+			//end update
+			//---------------------------------
+
+
+			//---------------------------------
+			// DRAW
+			//---------------------------------
+
+
+			//clear window to single colour
+			gameWindow.clear();
+
+		//draw everything
+
+		//display window contents to screen
+		gameWindow.display();
+
+		//---------------------------------
+		//end draw
+		//--------------------------------
+
+	} //end of game while loop
+	//end of game loop
+	//-----------------------------------
+
+
+	//exit point of program
 	return 0;
-}
+} //end of main function()
