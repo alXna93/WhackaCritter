@@ -1,6 +1,14 @@
+//------------------------------
+// INCLUDED LIBRARIES
+//------------------------------
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <string>
+
+//------------------------------
+// INCLUDED IN PROJECT
+//------------------------------
+#include "Critter.h"
 
 int main()
 {
@@ -14,6 +22,9 @@ int main()
 
 	//Timer function
 	sf::Clock gameClock;
+
+	//create instance of critter class
+	Critter Whaley;
 
 	//end game setup
 
@@ -62,6 +73,7 @@ int main()
 			gameWindow.clear();
 
 		//draw everything
+			Whaley.Draw(gameWindow);
 
 		//display window contents to screen
 		gameWindow.display();
