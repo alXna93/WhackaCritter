@@ -44,7 +44,8 @@ int main()
 		sf::Event event;
 		while (gameWindow.pollEvent(event))
 		{
-
+			//Process inout on critters
+			Whaley.Input(event);
 
 			if (event.type == sf::Event::Closed)
 			{
