@@ -27,11 +27,14 @@ int main()
 	//seed our random number generator
 	srand(time(NULL));
 
-	//create instance of critter class
-	Critter Whaley;
-	Whaley.Setup("graphics/whale.png", 5);
-	Critter Russ;
-	Russ.Setup("graphics/walrus.png", 10);
+
+	const int NUM_CRITTERS = 5;
+	Critter critters[NUM_CRITTERS];
+	critters[0].Setup("graphics/whale.png", 5);
+	critters[1].Setup("graphics/walrus.png", 10);
+	critters[2].Setup("graphics/sloth.png",15);
+	critters[3].Setup("graphics/moose.png", 20);
+	critters[4].Setup("graphics/elephant.png", 25);
 
 	//game font
 	sf::Font gameFont;
@@ -63,8 +66,11 @@ int main()
 		while (gameWindow.pollEvent(event))
 		{
 			//Process inout on critters
-			Whaley.Input(event);
-			Russ.Input(event);
+		
+			for (int i = 0; i < NUM_CRITTERS; ++i)
+			{
+				critters[i].Input(event);
+			}
 
 			if (event.type == sf::Event::Closed)
 			{
@@ -84,15 +90,18 @@ int main()
 		sf::Time frameTime = gameClock.restart();
 
 		// See if there is any pending score
-		score += Whaley.GetPendingScore();
-		Whaley.ClearPendingScore();
+
+		for (int i = 0; i < NUM_CRITTERS; ++i)
+		{
+			score += critters[i].GetPendingScore();
+			critters[i].ClearPendingScore();
+		}
+
+		
+		
 		scoreText.setString("Score:  " + std::to_string(score));
 		
-		//second critter
-		score += Russ.GetPendingScore();
-		Russ.ClearPendingScore();
-		scoreText.setString("Score:  " + std::to_string(score));
-
+	
 			//end update
 			//---------------------------------
 
@@ -106,8 +115,12 @@ int main()
 			gameWindow.clear();
 
 		//draw everything
-			Whaley.Draw(gameWindow);
-			Russ.Draw(gameWindow);
+
+			for (int i = 0; i < NUM_CRITTERS; ++i)
+			{
+				critters[i].Draw(gameWindow);
+			}
+
 			gameWindow.draw(scoreText);
 
 		//display window contents to screen
